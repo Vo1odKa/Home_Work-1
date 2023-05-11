@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 
 def normalize(name):
     translit_dict = {
@@ -73,5 +74,16 @@ def sort_files(folder_path):
             if not os.listdir(dir_path):
                 os.rmdir(dir_path)
 
-folder_path = r'C:\Users\User\Desktop\Мотлох'
-sort_files(folder_path)
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py folder_name")
+        sys.exit(1)
+    
+    folder_name = sys.argv[1]
+    folder_path = os.path.abspath(folder_name)
+    
+    if not os.path.isdir(folder_path):
+        print("Invalid folder path.")
+        sys.exit(1)
+    
+    sort_files(folder_path)
